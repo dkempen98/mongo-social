@@ -3,13 +3,32 @@ const { Schema, model } = require('mongoose')
 // Create schema for Users and create entries
 
 const userSchema = new Schema({
-        username: { type: String, required: true, unique: true, trimmed: true },
-        email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
-        thoughts: [{ type: Schema.Types.ObjectId, ref: 'thoughts' }],
-        friends: [{ type: Schema.Types.ObjectId, ref: 'friends' }],
+        username: { 
+            type: String, 
+            required: true, 
+            trim: true,
+            unique: true 
+        },
+        email: { 
+            type: String, 
+            required: true, 
+            unique: true, 
+            match: [/.+\@.+\..+/, 'Must be an email address.']
+        },
+        thoughts: [
+            { 
+                type: Schema.Types.ObjectId, 
+                ref: 'thoughts' 
+            }
+        ],
+        friends: [{ 
+            type: Schema.Types.ObjectId, 
+            ref: 'users' 
+        }],
     },
     {
         toJSON: {
+            getters: true,
             virtuals: true,
         }
     }

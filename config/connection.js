@@ -1,8 +1,12 @@
-const mongoose = require('mongoose');
+const { connect, connection } = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/libraryDB', {
+const connectionString =
+  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/studentsDB';
+
+connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
-module.exports = mongoose.connection;
+module.exports = connection;
+
