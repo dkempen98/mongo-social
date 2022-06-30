@@ -12,6 +12,7 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(routes)
 
 // WHEN I open API GET routes in Insomnia for users and thoughts
 // THEN the data for each of these routes is displayed in a formatted JSON

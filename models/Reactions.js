@@ -1,4 +1,3 @@
-const { ObjectId } = require('bson')
 const { Schema, model } = require('mongoose')
 
 const reactionSchema = new Schema({
@@ -14,8 +13,7 @@ const reactionSchema = new Schema({
     username: { 
         type: String, 
         required: true
-    },
-    reactions: [reactionSchema],
+    }
 },
 {
     toJSON: {
@@ -25,4 +23,6 @@ const reactionSchema = new Schema({
 }
 )
 
-module.exports = Reactions
+// const Reactions = model('reactions', reactionSchema)
+
+module.exports = reactionSchema

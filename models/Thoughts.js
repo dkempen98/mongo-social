@@ -13,15 +13,13 @@ const thoughtSchema = new Schema({
         createdAt: { 
             type: Date, 
             default: Date.now(), 
-            get: formatted 
+            // get: formatted
         },
         username: { 
             type: String, 
             required: true 
         },
-        reactions: [
-            reactionSchema
-        ]
+        reactions: [reactionSchema]
     },
     {
         toJSON: {
@@ -32,10 +30,10 @@ const thoughtSchema = new Schema({
 
 // Format time when queried
 
-function formatted(time) {
-    console.log(time.toLocalString('en-US'))
-    return time.toLocalString('en-US')
-}
+// function formatted(time) {
+//     console.log(time.toLocalString('en-US'))
+//     return time.toLocalString('en-US')
+// }
 
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
