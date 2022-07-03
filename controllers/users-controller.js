@@ -44,6 +44,38 @@ const userController = {
         .select('-__v')
         .then((usersData) => {res.json(usersData)})
         .catch((err) => res.status(500).json(err))
+    },
+    addFriend(req, res) {
+        Users.findOneAndUpdate(
+            {username: req.params.username},
+            {$addToSet: { friends: req.params.friendUsername }},
+            {runValidators: true, new: true}
+        )
+        .then((friend) => {
+            if(friend) {
+                res.json(friend)
+            } else {
+                res.status(404).json({message: 'Friend not found'})
+            }
+        })
+        .catch((err) => res.status(500).json(err))
+    },
+    removeFriend(req, res) {
+        console.log(req.params.friendUsername)
+        console.log(req.params.username)
+        Users.findOneAndUpdate(
+            {username: req.params.username},
+            {$pull: {friends: req.params.friendUsername}},
+            {runValidators: true, new: true}
+        )
+        .then((thought) => {
+            if(thought) {
+                res.json(thought)
+            } else {
+                res.status(404).json({message: 'Friend not found'})
+            }
+        })
+        .catch((err) => res.status(500).json(err))
     }
 }
 

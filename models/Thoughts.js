@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose')
+const date = require('date-and-time')
 const reactionSchema = require('./Reactions')
 
 // create thoughts schema, use a getter method to format the time
@@ -13,7 +14,7 @@ const thoughtSchema = new Schema({
         createdAt: { 
             type: Date, 
             default: Date.now(), 
-            // get: formatted
+            get: formatted
         },
         username: { 
             type: String, 
@@ -30,10 +31,9 @@ const thoughtSchema = new Schema({
 
 // Format time when queried
 
-// function formatted(time) {
-//     console.log(time.toLocalString('en-US'))
-//     return time.toLocalString('en-US')
-// }
+function formatted(time) {
+    return date.format(time, 'MM/DD/YYYY HH:mm:ss')
+}
 
 thoughtSchema.virtual('reactionCount').get(function () {
     return this.reactions.length;
